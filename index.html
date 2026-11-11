@@ -1,0 +1,95 @@
+<!doctype html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>أكاديمية الإمام أبي جعفر المدني</title>
+<meta name="description" content="التسجيل في المقرأة وصفحة الطالب والدورات والاختبارات">
+<meta name="theme-color" content="#6D2E46">
+<link rel="manifest" href="manifest.webmanifest">
+<link rel="icon" type="image/png" sizes="32x32" href="./icons/favicon-32.png">
+<link rel="apple-touch-icon" href="./icons/apple-180.png">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-title" content="أكاديمية أبي جعفر">
+<meta name="apple-mobile-web-app-status-bar-style" content="default">
+<style>
+ :root{--paper:#ECE2D0;--wine:#6D2E46;--wineDark:#3F1B2A;--gold:#C3A87E}
+ html,body{margin:0;height:100%;background:var(--paper);overflow:hidden;font-family:system-ui,-apple-system,"Segoe UI",Tahoma,sans-serif;color:var(--wineDark)}
+ #app{position:fixed;inset:0;padding:env(safe-area-inset-top) env(safe-area-inset-right) env(safe-area-inset-bottom) env(safe-area-inset-left);box-sizing:border-box}
+ #app iframe{width:100%;height:100%;border:0;display:block;background:var(--paper)}
+ .cover{position:fixed;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:14px;background:var(--paper);text-align:center;padding:24px;z-index:5}
+ .cover img{width:112px;height:112px;border-radius:24px}
+ .cover b{font-size:20px}
+ .cover p{margin:0;font-size:15px;max-width:340px;line-height:1.7}
+ .spin{width:28px;height:28px;border:3px solid var(--gold);border-top-color:var(--wine);border-radius:50%;animation:s 1s linear infinite}
+ @keyframes s{to{transform:rotate(360deg)}}
+ button{font:inherit;background:var(--wine);color:#fff;border:0;border-radius:10px;padding:10px 18px;cursor:pointer}
+ button.ghost{background:transparent;color:var(--wine);border:1px solid var(--wine)}
+ .hint{position:fixed;inset-inline:10px;bottom:calc(10px + env(safe-area-inset-bottom));background:var(--wineDark);color:#fff;border-radius:12px;padding:12px 14px;font-size:14px;line-height:1.7;z-index:9;display:flex;gap:10px;align-items:center;box-shadow:0 6px 20px rgba(0,0,0,.3)}
+ .hint button{padding:6px 12px;font-size:14px}
+ [hidden]{display:none!important}
+</style>
+</head>
+<body>
+<div id="app"><iframe id="frame" title="أكاديمية الإمام أبي جعفر المدني" allow="clipboard-write; fullscreen; camera; microphone" referrerpolicy="no-referrer-when-downgrade"></iframe></div>
+
+<div class="cover" id="loading">
+ <img src="./icons/icon-192.png" alt="">
+ <b>أكاديمية الإمام أبي جعفر المدني</b>
+ <div class="spin" aria-hidden="true"></div>
+ <p id="slow" hidden>الاتصال بطيء… انتظر قليلًا، أو <a href="#" onclick="reloadApp();return false">أعد المحاولة</a>.</p>
+</div>
+
+<div class="cover" id="offline" hidden>
+ <img src="./icons/icon-192.png" alt="">
+ <b>لا يوجد اتصال بالإنترنت</b>
+ <p>يحتاج التطبيق إلى الإنترنت ليعرض البيانات ويحفظها. تأكّد من الاتصال ثم أعد المحاولة.</p>
+ <button onclick="reloadApp()">أعد المحاولة</button>
+</div>
+
+<div class="hint" id="installHint" hidden>
+ <span style="flex:1" id="installText"></span>
+ <button id="installBtn" hidden>ثبّته</button>
+ <button class="ghost" style="color:#fff;border-color:#fff" onclick="hideHint()">لاحقًا</button>
+</div>
+
+<script>
+var APP_URL = "https://script.google.com/macros/s/AKfycbyW186ID5QDe2g6O0rWiyg7yDifA7b1vBLXxU-noBRd2DQn9waAPAgBn5kwawj7h4a9AQ/exec";
+var fr = document.getElementById('frame'), loading = document.getElementById('loading'), off = document.getElementById('offline'), slowT = null;
+function show(el, on){ el.hidden = !on; }
+function reloadApp(){
+ if(!navigator.onLine){ show(off, true); show(loading, false); return; }
+ show(off, false); show(loading, true); show(document.getElementById('slow'), false);
+ clearTimeout(slowT); slowT = setTimeout(function(){ show(document.getElementById('slow'), true); }, 15000);
+ fr.src = APP_URL + (APP_URL.indexOf('?') > -1 ? '&' : '?') + 'v=' + Date.now();
+}
+fr.addEventListener('load', function(){ clearTimeout(slowT); show(loading, false); });
+window.addEventListener('offline', function(){ show(off, true); });
+window.addEventListener('online', function(){ if(!off.hidden) reloadApp(); });
+reloadApp();
+
+/* تثبيت التطبيق: أندرويد يعرض زرًّا، والآيفون يعرض الطريقة */
+var standalone = window.matchMedia('(display-mode: standalone)').matches || window.navigator.standalone === true;
+var KEY = 'hintHidden_' + location.pathname;
+function hidden_(){ try { return localStorage.getItem(KEY) === '1'; } catch(e){ return false; } }
+function hideHint(){ show(document.getElementById('installHint'), false); try { localStorage.setItem(KEY, '1'); } catch(e){} }
+var deferred = null;
+window.addEventListener('beforeinstallprompt', function(e){
+ e.preventDefault(); deferred = e;
+ if(standalone || hidden_()) return;
+ document.getElementById('installText').textContent = 'ثبّت «أكاديمية أبي جعفر» على شاشتك ليُفتح كتطبيق.';
+ show(document.getElementById('installBtn'), true); show(document.getElementById('installHint'), true);
+});
+document.getElementById('installBtn').onclick = function(){ if(!deferred) return; deferred.prompt(); deferred.userChoice.then(function(){ deferred = null; hideHint(); }); };
+var iOS = /iphone|ipad|ipod/i.test(navigator.userAgent) || (navigator.platform === 'MacIntel' && navigator.maxTouchPoints > 1);
+if(iOS && !standalone && !hidden_()){
+ setTimeout(function(){
+   document.getElementById('installText').innerHTML = 'لتثبيته: اضغط زرّ المشاركة <b>⬆︎</b> في Safari، ثم «<b>إضافة إلى الشاشة الرئيسية</b>».';
+   show(document.getElementById('installHint'), true);
+ }, 2500);
+}
+if('serviceWorker' in navigator){ navigator.serviceWorker.register('./sw.js', { scope: './' }).catch(function(){}); }
+</script>
+</body>
+</html>

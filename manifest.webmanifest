@@ -1,0 +1,32 @@
+{
+ "id": "./",
+ "name": "أكاديمية الإمام أبي جعفر المدني",
+ "short_name": "أكاديمية أبي جعفر",
+ "description": "التسجيل في المقرأة وصفحة الطالب والدورات والاختبارات",
+ "start_url": "./",
+ "scope": "./",
+ "display": "standalone",
+ "orientation": "any",
+ "dir": "rtl",
+ "lang": "ar",
+ "background_color": "#ECE2D0",
+ "theme_color": "#6D2E46",
+ "icons": [
+  {
+   "src": "./icons/icon-192.png",
+   "sizes": "192x192",
+   "type": "image/png"
+  },
+  {
+   "src": "./icons/icon-512.png",
+   "sizes": "512x512",
+   "type": "image/png"
+  },
+  {
+   "src": "./icons/maskable-512.png",
+   "sizes": "512x512",
+   "type": "image/png",
+   "purpose": "maskable"
+  }
+ ]
+}
