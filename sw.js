@@ -1,5 +1,6 @@
+/* © 2026 أحمد عثمان أبو العُلا — جميع الحقوق محفوظة. */
 /* غلاف التطبيق: يحفظ صفحات الغلاف والأيقونات فقط ليفتح فورًا؛ بيانات المقرأة تأتي دائمًا من الإنترنت */
-var CACHE = 'maqraah-shell-v1';
+var CACHE = 'maqraah-shell-v3';
 var SHELL = ['./', './index.html', './manifest.webmanifest', './admin/', './admin/index.html', './admin/manifest.webmanifest',
   './icons/icon-192.png', './icons/icon-512.png', './icons/maskable-512.png', './icons/apple-180.png', './icons/favicon-32.png'];
 self.addEventListener('install', function (e) { e.waitUntil(caches.open(CACHE).then(function (c) { return c.addAll(SHELL); }).then(function () { return self.skipWaiting(); })); });

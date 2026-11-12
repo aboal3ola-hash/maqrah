@@ -1,9 +1,10 @@
 <!doctype html>
 <html lang="ar" dir="rtl">
 <head>
+<!-- © 2026 أحمد عثمان أبو العُلا — أكاديمية إجادة للتعليم والإقراء. جميع الحقوق محفوظة. -->
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<title>أكاديمية الإمام أبي جعفر المدني</title>
+<title>أكاديمية إجادة للتعليم والإقراء</title>
 <meta name="description" content="التسجيل في المقرأة وصفحة الطالب والدورات والاختبارات">
 <meta name="theme-color" content="#6D2E46">
 <link rel="manifest" href="manifest.webmanifest">
@@ -11,7 +12,7 @@
 <link rel="apple-touch-icon" href="./icons/apple-180.png">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="mobile-web-app-capable" content="yes">
-<meta name="apple-mobile-web-app-title" content="أكاديمية أبي جعفر">
+<meta name="apple-mobile-web-app-title" content="أكاديمية إجادة">
 <meta name="apple-mobile-web-app-status-bar-style" content="default">
 <style>
  :root{--paper:#ECE2D0;--wine:#6D2E46;--wineDark:#3F1B2A;--gold:#C3A87E}
@@ -32,12 +33,13 @@
 </style>
 </head>
 <body>
-<div id="app"><iframe id="frame" title="أكاديمية الإمام أبي جعفر المدني" allow="clipboard-write; fullscreen; camera; microphone" referrerpolicy="no-referrer-when-downgrade"></iframe></div>
+<div id="app"><iframe id="frame" title="أكاديمية إجادة للتعليم والإقراء" allow="clipboard-write; fullscreen; camera; microphone" referrerpolicy="no-referrer-when-downgrade"></iframe></div>
 
 <div class="cover" id="loading">
  <img src="./icons/icon-192.png" alt="">
- <b>أكاديمية الإمام أبي جعفر المدني</b>
+ <b>أكاديمية إجادة للتعليم والإقراء</b>
  <div class="spin" aria-hidden="true"></div>
+ <p style="font-size:12px;opacity:.7;position:absolute;bottom:calc(14px + env(safe-area-inset-bottom));inset-inline:0">© ٢٠٢٦ أحمد عثمان أبو العُلا — جميع الحقوق محفوظة</p>
  <p id="slow" hidden>الاتصال بطيء… انتظر قليلًا، أو <a href="#" onclick="reloadApp();return false">أعد المحاولة</a>.</p>
 </div>
 
@@ -78,7 +80,7 @@ var deferred = null;
 window.addEventListener('beforeinstallprompt', function(e){
  e.preventDefault(); deferred = e;
  if(standalone || hidden_()) return;
- document.getElementById('installText').textContent = 'ثبّت «أكاديمية أبي جعفر» على شاشتك ليُفتح كتطبيق.';
+ document.getElementById('installText').textContent = 'ثبّت «أكاديمية إجادة» على شاشتك ليُفتح كتطبيق.';
  show(document.getElementById('installBtn'), true); show(document.getElementById('installHint'), true);
 });
 document.getElementById('installBtn').onclick = function(){ if(!deferred) return; deferred.prompt(); deferred.userChoice.then(function(){ deferred = null; hideHint(); }); };
